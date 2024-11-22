@@ -1,3 +1,4 @@
+import cors from "cors";
 import multer from "multer";
 import express from "express";
 
@@ -8,10 +9,16 @@ import {
  putPost,
 } from "../controllers/posts-controller.js";
 
+const corsOptions = {
+ origin: "http://localhost:8000",
+ optionsSuccessStatus: 200,
+};
+
 const upload = multer({ dest: "./uploads" });
 
 const routes = (app) => {
  app.use(express.json());
+ app.use(cors(corsOptions));
 
  app.get("/posts", listPosts);
  app.post("/posts", sendPost);
